@@ -1,6 +1,8 @@
 const express = require ('express')
 const hbs = require ('hbs')
 const app = express()
+const dotenv = require("dotenv")
+ dotenv.config();
 const mongoose = require ('mongoose')
 const bodyparser =require('body-parser')
 const routes = require ('./routes/main')
@@ -11,6 +13,7 @@ const service = require("./models/service")
 const banner2 =require("./models/banner2")
 const banner3 =require("./models/banner3")
 const PORT = process.env.PORT || 5000;
+const database_url = process.env.database_url || 'mongodb://localhost:27017/website_tut'
 
 app.use(bodyparser.urlencoded({
     extended : true
@@ -28,7 +31,7 @@ hbs.registerPartials('views/partials')
 
 
 
-mongoose.connect('mongodb://localhost:27017/website_tut')
+mongoose.connect(database_url)
 .then (() =>{
     console.log('connected')
 
